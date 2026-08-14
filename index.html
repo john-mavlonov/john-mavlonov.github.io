@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Mavlonov - Premium Pizza Chef Portfolio</title>
+    <meta name="description" content="Premium portfolio of John Mavlonov, professional pizza chef with 4+ years of culinary excellence">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">JM</span>
+                <span class="logo-subtitle">Pizza Master</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#hero" class="nav-link">Home</a>
+                <a href="#story" class="nav-link">Story</a>
+                <a href="#gallery" class="nav-link">Portfolio</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="admin.html" class="nav-link admin-link">Admin</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-video-container">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="https://videos.pexels.com/video-files/3571085/3571085-hd_1280_720_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Culinary</span>
+                    <span class="title-line">Excellence</span>
+                    <span class="title-line">Perfected</span>
+                </h1>
+                <p class="hero-subtitle">4+ Years of Mastering the Art of Italian Pizza</p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                        <span>Let's Create Magic</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('story').scrollIntoView({behavior: 'smooth'})">
+                        <span>Discover My Journey</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">4+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Perfect Pizzas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5★</span>
+                    <span class="stat-label">Professional Rating</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <svg class="scroll-icon" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zm0 18.8c-3.35 0-6-2.57-6-6.2 0-2.34 1.95-5.44 6-9.14 4.05 3.7 6 6.79 6 9.14 0 3.63-2.65 6.2-6 6.2z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story">
+        <div class="story-container">
+            <div class="section-header">
+                <span class="section-label">My Journey</span>
+                <h2>The Passion Behind the Craft</h2>
+            </div>
+
+            <div class="story-timeline">
+                <div class="timeline-item" data-year="2020">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2020</span>
+                        <h3>Beginning the Journey</h3>
+                        <p>Started my professional pizza-making career at a renowned Italian restaurant. Learned traditional techniques from master chefs and fell in love with the craft.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2021">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2021</span>
+                        <h3>Becoming Sous Chef</h3>
+                        <p>Promoted to Sous Chef position. Began mentoring junior staff and developing signature pizza recipes that became customer favorites.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2022">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2022</span>
+                        <h3>Recognition & Awards</h3>
+                        <p>Won "Best Pizza Chef" award at the Regional Culinary Competition. Recognized for innovative flavor combinations and traditional craftsmanship.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2023">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023</span>
+                        <h3>Perfecting the Art</h3>
+                        <p>Expanded expertise to include gourmet and fusion pizzas. Trained at international culinary institutes and mastered diverse pizza styles.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2024">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <h3>Innovation & Leadership</h3>
+                        <p>Leading kitchen operations and creating innovative menu concepts. Building a legacy of culinary excellence and mentoring next-generation chefs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="gallery-container">
+            <div class="section-header">
+                <span class="section-label">Portfolio</span>
+                <h2>Culinary Masterpieces</h2>
+                <p>Each pizza tells a story of passion, precision, and perfection</p>
+            </div>
+
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="traditional">Traditional</button>
+                <button class="filter-btn" data-filter="gourmet">Gourmet</button>
+                <button class="filter-btn" data-filter="fusion">Fusion</button>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="traditional">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1564236027174-e63e461f5fc1?w=500&h=500&fit=crop" alt="Margherita Pizza">
+                        <div class="gallery-overlay">
+                            <h3>Margherita</h3>
+                            <p>Classic Italian with fresh basil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="traditional">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1571211613576-2155a66003f5?w=500&h=500&fit=crop" alt="Pepperoni Pizza">
+                        <div class="gallery-overlay">
+                            <h3>Pepperoni Perfetto</h3>
+                            <p>Premium Italian pepperoni</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="gourmet">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561c1a?w=500&h=500&fit=crop" alt="Gourmet Pizza">
+                        <div class="gallery-overlay">
+                            <h3>Truffle Elegance</h3>
+                            <p>Black truffle and goat cheese</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="gourmet">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&h=500&fit=crop" alt="Premium Pizza">
+                        <div class="gallery-overlay">
+                            <h3>Prosciutto Crown</h3>
+                            <p>San Daniele prosciutto di parma</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="fusion">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1561758033-d89a0ad1c3a0?w=500&h=500&fit=crop" alt="Fusion Pizza">
+                        <div class="gallery-overlay">
+                            <h3>Asian Fusion</h3>
+                            <p>Kimchi and ginger blend</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="fusion">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?w=500&h=500&fit=crop" alt="Creative Pizza">
+                        <div class="gallery-overlay">
+                            <h3>Spicy Sensation</h3>
+                            <p>Jalapeños and hot honey</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="skills-container">
+            <div class="section-header">
+                <span class="section-label">Expertise</span>
+                <h2>Professional Skills & Specializations</h2>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🍕</div>
+                    <h3>Pizzaiolo Mastery</h3>
+                    <p>Traditional and contemporary pizza preparation with perfected techniques</p>
+                    <div class="skill-level">
+                        <div class="skill-bar" style="width: 95%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">👨‍🍳</div>
+                    <h3>Sous Chef Leadership</h3>
+                    <p>Kitchen management and team coordination</p>
+                    <div class="skill-level">
+                        <div class="skill-bar" style="width: 88%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🌾</div>
+                    <h3>Ingredient Sourcing</h3>
+                    <p>Premium ingredient selection and supplier relationships</p>
+                    <div class="skill-level">
+                        <div class="skill-bar" style="width: 92%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">💡</div>
+                    <h3>Recipe Innovation</h3>
+                    <p>Creating signature dishes and fusion concepts</p>
+                    <div class="skill-level">
+                        <div class="skill-bar" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">👥</div>
+                    <h3>Team Mentoring</h3>
+                    <p>Training and developing culinary talent</p>
+                    <div class="skill-level">
+                        <div class="skill-bar" style="width: 87%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🏆</div>
+                    <h3>Quality Assurance</h3>
+                    <p>Consistency and excellence in every creation</p>
+                    <div class="skill-level">
+                        <div class="skill-bar" style="width: 96%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <div class="section-header">
+                <span class="section-label">Get In Touch</span>
+                <h2>Let's Create Something Extraordinary</h2>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:john@mavlonov.com">john@mavlonov.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Italy, Europe</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 John Mavlonov. Premium Pizza Chef Portfolio.</p>
+            <div class="social-links">
+                <a href="#" title="Instagram">Instagram</a>
+                <a href="#" title="LinkedIn">LinkedIn</a>
+                <a href="#" title="Twitter">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="utils.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
