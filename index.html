@@ -1,605 +1,759 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>John Mavlonov · Повар-пиццер</title>
-  <meta name="description" content="Портфолио профессионального повара-пиццера John Mavlonov. Неаполитанская, бруклинская пицца, турецкая кухня.">
-  <!-- Google Fonts Premium -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --bg-primary: #0b0806;
-      --bg-secondary: #14100e;
-      --text-primary: #f0ebe6;
-      --text-muted: #a8988b;
-      --accent-gold: #c89f6b;
-      --accent-fire: #d95c2b;
-      --glass-bg: rgba(20, 16, 14, 0.65);
-      --border-glow: rgba(200, 159, 107, 0.2);
-      --shadow-deep: 0 25px 60px rgba(0,0,0,0.8);
-    }
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-      cursor: default;
-    }
-    /* custom cursor luxury */
-    body * {
-      cursor: default;
-    }
-    a, button, .cursor-pointer {
-      cursor: pointer;
-    }
-
-    /* scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #1a1410; }
-    ::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 12px; }
-
-    /* typography */
-    h1, h2, h3, .serif {
-      font-family: 'Playfair Display', serif;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-    .gold { color: var(--accent-gold); }
-    .fire { color: var(--accent-fire); }
-
-    /* glass */
-    .glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px) saturate(1.2);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-glow);
-      border-radius: 32px;
-    }
-
-    /* layout */
-    .container {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-    section {
-      padding: 80px 0;
-      position: relative;
-    }
-
-    /* hero video bg */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      padding: 0;
-    }
-    .hero-video {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: 0;
-      filter: brightness(0.4) saturate(0.8);
-    }
-    .hero-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 20% 40%, rgba(0,0,0,0.2) 0%, rgba(11,8,6,0.85) 90%);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 780px;
-      padding: 40px 0;
-    }
-    .hero-title {
-      font-size: clamp(2.8rem, 10vw, 5.5rem);
-      line-height: 1.05;
-      margin-bottom: 0.4rem;
-    }
-    .hero-sub {
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      font-weight: 300;
-      color: var(--text-muted);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-    }
-    .hero-desc {
-      font-size: 1.15rem;
-      max-width: 540px;
-      color: #d8cec4;
-      margin-bottom: 2.8rem;
-    }
-    .btn-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 14px 42px;
-      border-radius: 60px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      transition: all 0.3s ease;
-      border: none;
-      background: transparent;
-      color: var(--text-primary);
-      font-size: 1rem;
-      text-decoration: none;
-      border: 1px solid var(--accent-gold);
-    }
-    .btn-primary {
-      background: var(--accent-gold);
-      color: #0b0806;
-      border-color: var(--accent-gold);
-      box-shadow: 0 8px 24px rgba(200,159,107,0.25);
-    }
-    .btn-primary:hover {
-      background: #b88a56;
-      transform: scale(1.03);
-      box-shadow: 0 12px 32px rgba(200,159,107,0.4);
-    }
-    .btn-outline {
-      border-color: rgba(240,235,230,0.25);
-    }
-    .btn-outline:hover {
-      background: rgba(200,159,107,0.15);
-      border-color: var(--accent-gold);
-    }
-
-    /* reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* story */
-    .story-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-    .story-image {
-      width: 100%;
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow: var(--shadow-deep);
-      background: #1f1814;
-    }
-    .story-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .story-text .serif {
-      font-size: 2.4rem;
-      margin-bottom: 1.2rem;
-    }
-    .stat-list {
-      display: flex;
-      gap: 40px;
-      margin-top: 2rem;
-    }
-    .stat-item .number {
-      font-size: 2.6rem;
-      font-family: 'Playfair Display', serif;
-      color: var(--accent-gold);
-    }
-
-    /* cards */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 28px;
-      margin-top: 30px;
-    }
-    .exp-card, .skill-card {
-      background: var(--bg-secondary);
-      padding: 28px 20px;
-      border-radius: 28px;
-      border-left: 4px solid var(--accent-gold);
-      transition: 0.3s;
-    }
-    .exp-card:hover, .skill-card:hover {
-      transform: translateY(-8px);
-      background: #1f1814;
-      border-color: var(--accent-fire);
-    }
-    .skill-tag {
-      display: inline-block;
-      background: rgba(200,159,107,0.12);
-      padding: 8px 18px;
-      border-radius: 40px;
-      margin: 5px 6px 5px 0;
-      font-size: 0.85rem;
-      border: 1px solid rgba(200,159,107,0.15);
-    }
-
-    /* gallery */
-    .gallery-filter {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-    .filter-btn {
-      background: transparent;
-      border: 1px solid rgba(240,235,230,0.15);
-      padding: 8px 24px;
-      border-radius: 40px;
-      color: var(--text-muted);
-      transition: 0.25s;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--accent-gold);
-      color: #0b0806;
-      border-color: var(--accent-gold);
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
-      gap: 24px;
-    }
-    .gallery-item {
-      border-radius: 28px;
-      overflow: hidden;
-      position: relative;
-      aspect-ratio: 1/1;
-      background: #1f1814;
-      transition: 0.3s;
-      cursor: pointer;
-    }
-    .gallery-item img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: 0.6s;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.08);
-    }
-    .gallery-item .overlay {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 30px 20px;
-      background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent);
-      color: white;
-      font-weight: 500;
-    }
-
-    /* lightbox */
-    .lightbox {
-      position: fixed;
-      top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(12px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-    .lightbox.active {
-      display: flex;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 85%;
-      border-radius: 28px;
-      box-shadow: 0 30px 80px black;
-    }
-
-    /* admin toggle */
-    .admin-panel {
-      background: #0f0c0a;
-      padding: 40px 0;
-      border-top: 1px solid var(--border-glow);
-      margin-top: 60px;
-      border-radius: 40px 40px 0 0;
-    }
-    .admin-login, .admin-editor {
-      display: none;
-    }
-    .admin-login.active, .admin-editor.active {
-      display: block;
-    }
-    .admin-input, .admin-textarea {
-      width: 100%;
-      background: #1f1814;
-      border: 1px solid #2f2620;
-      padding: 14px 20px;
-      border-radius: 60px;
-      color: white;
-      margin-bottom: 16px;
-    }
-    .admin-textarea {
-      border-radius: 24px;
-      min-height: 100px;
-    }
-    .admin-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    /* responsive */
-    @media (max-width: 768px) {
-      .story-grid { grid-template-columns: 1fr; gap: 30px; }
-      .stat-list { flex-wrap: wrap; gap: 20px; }
-      .hero-title { font-size: 3.2rem; }
-      .admin-row { grid-template-columns: 1fr; }
-    }
-
-    /* micro */
-    .text-glow {
-      text-shadow: 0 0 40px rgba(200,159,107,0.15);
-    }
-    .divider {
-      width: 80px; height: 3px;
-      background: var(--accent-gold);
-      margin: 20px 0 30px;
-      border-radius: 12px;
-    }
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(200,159,107,0.08);
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>John Mavlonov · Повар-пиццер</title>
+    <meta name="description" content="Портфолио профессионального повара-пиццера John Mavlonov. Неаполитанская, бруклинская пицца, турецкая кухня." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== RESET & ROOT ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg-primary: #0b0806;
+            --bg-secondary: #14100e;
+            --bg-card: #1f1814;
+            --text-primary: #f0ebe6;
+            --text-muted: #a8988b;
+            --accent-gold: #c89f6b;
+            --accent-fire: #d95c2b;
+            --glass-bg: rgba(20, 16, 14, 0.7);
+            --border-glow: rgba(200, 159, 107, 0.2);
+            --shadow-deep: 0 25px 60px rgba(0, 0, 0, 0.8);
+            --radius: 28px;
+            --transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1,
+        h2,
+        h3,
+        .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .gold {
+            color: var(--accent-gold);
+        }
+        .fire {
+            color: var(--accent-fire);
+        }
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(1.2);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius);
+        }
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+        section {
+            padding: 90px 0;
+            position: relative;
+        }
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1410;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 12px;
+        }
+        /* ===== REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 42px;
+            border-radius: 60px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid var(--accent-gold);
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--accent-gold);
+            color: #0b0806;
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 24px rgba(200, 159, 107, 0.25);
+        }
+        .btn-primary:hover {
+            background: #b88a56;
+            transform: scale(1.03);
+            box-shadow: 0 12px 32px rgba(200, 159, 107, 0.4);
+        }
+        .btn-outline {
+            border-color: rgba(240, 235, 230, 0.25);
+        }
+        .btn-outline:hover {
+            background: rgba(200, 159, 107, 0.15);
+            border-color: var(--accent-gold);
+        }
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+        }
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.35) saturate(0.7);
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 40%, rgba(0, 0, 0, 0.1) 0%, rgba(11, 8, 6, 0.85) 90%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+            padding: 40px 0;
+        }
+        .hero-title {
+            font-size: clamp(2.8rem, 10vw, 5.5rem);
+            line-height: 1.05;
+            margin-bottom: 0.4rem;
+        }
+        .hero-sub {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .hero-desc {
+            font-size: 1.15rem;
+            max-width: 540px;
+            color: #d8cec4;
+            margin-bottom: 2.8rem;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+        /* ===== STORY ===== */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .story-image {
+            width: 100%;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-deep);
+            background: var(--bg-card);
+        }
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s;
+        }
+        .story-image:hover img {
+            transform: scale(1.03);
+        }
+        .story-text .serif {
+            font-size: 2.4rem;
+            margin-bottom: 1.2rem;
+        }
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gold);
+            margin: 20px 0 30px;
+            border-radius: 12px;
+        }
+        .stat-list {
+            display: flex;
+            gap: 40px;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .stat-item .number {
+            font-size: 2.8rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+        /* ===== CARDS ===== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
+            margin-top: 30px;
+        }
+        .exp-card,
+        .skill-card {
+            background: var(--bg-card);
+            padding: 28px 20px;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent-gold);
+            transition: var(--transition);
+        }
+        .exp-card:hover,
+        .skill-card:hover {
+            transform: translateY(-8px);
+            background: #2a211c;
+            border-color: var(--accent-fire);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+        .skill-tag {
+            display: inline-block;
+            background: rgba(200, 159, 107, 0.12);
+            padding: 8px 20px;
+            border-radius: 40px;
+            margin: 5px 8px 5px 0;
+            font-size: 0.85rem;
+            border: 1px solid rgba(200, 159, 107, 0.15);
+            transition: var(--transition);
+        }
+        .skill-tag:hover {
+            background: rgba(200, 159, 107, 0.25);
+            border-color: var(--accent-gold);
+        }
+        /* ===== GALLERY ===== */
+        .gallery-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(240, 235, 230, 0.12);
+            padding: 8px 28px;
+            border-radius: 40px;
+            color: var(--text-muted);
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--accent-gold);
+            color: #0b0806;
+            border-color: var(--accent-gold);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 1/1;
+            background: var(--bg-card);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px 20px;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent);
+            color: #fff;
+            font-weight: 500;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .gallery-item:hover .overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 40px;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 95%;
+            max-height: 90%;
+            border-radius: var(--radius);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            font-weight: 300;
+            opacity: 0.7;
+        }
+        .lightbox-close:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+        /* ===== CONTACT ===== */
+        .contact-card {
+            padding: 48px 40px;
+            max-width: 600px;
+        }
+        .contact-card p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(200, 159, 107, 0.06);
+        }
+        /* ===== ADMIN LINK ===== */
+        .admin-link {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+            background: var(--bg-card);
+            padding: 12px 20px;
+            border-radius: 60px;
+            border: 1px solid var(--border-glow);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+        }
+        .admin-link:hover {
+            color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .stat-list {
+                gap: 24px;
+            }
+            .contact-card {
+                padding: 30px 20px;
+            }
+            section {
+                padding: 60px 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .btn {
+                padding: 12px 28px;
+                font-size: 0.9rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <video class="hero-video" autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%2314100e'/%3E%3C/svg%3E">
-      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    </video>
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
-      <p class="hero-sub gold">Pizza Chef · Sous-Chef</p>
-      <h1 class="hero-title">John <br>Mavlonov</h1>
-      <p class="hero-desc">Неаполитанская душа, бруклинский характер. 4 года у печи, скорость и вкус — мои ингредиенты.</p>
-      <div class="btn-group">
-        <a href="#" class="btn btn-primary" id="downloadCv">Скачать резюме</a>
-        <a href="#contact" class="btn btn-outline">Связаться</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- STORY -->
-  <section id="story" class="container">
-    <div class="story-grid reveal">
-      <div class="story-image">
-        <img src="https://picsum.photos/seed/pizza/800/600" alt="John Mavlonov" loading="lazy">
-      </div>
-      <div class="story-text">
-        <span class="gold serif" style="font-size:1.2rem;">История</span>
-        <h2 class="serif" style="font-size:2.8rem;">От теста к <span class="gold">искусству</span></h2>
-        <div class="divider"></div>
-        <p>John начал свой путь в 20 лет, пройдя через лучшие пиццерии: от «Белка» до «Dens Pizza». Сегодня он — универсал: управляет линией, инвентаризацией, и выдаёт до 200 пицц за смену.</p>
-        <div class="stat-list">
-          <div class="stat-item"><span class="number">4+</span><br>лет опыта</div>
-          <div class="stat-item"><span class="number">120+</span><br>блюд в меню</div>
-          <div class="stat-item"><span class="number">6</span><br>мест работы</div>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <p class="hero-sub gold" id="heroSub">Pizza Chef · Sous-Chef</p>
+            <h1 class="hero-title" id="heroTitle">John <br />Mavlonov</h1>
+            <p class="hero-desc" id="heroDesc">Неаполитанская душа, бруклинский характер. 4 года у печи, скорость и вкус — мои ингредиенты.</p>
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary" id="downloadCv">Скачать резюме</a>
+                <a href="#contact" class="btn btn-outline">Связаться</a>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- ===== STORY ===== -->
+    <section id="story" class="container">
+        <div class="story-grid">
+            <div class="story-image reveal-left">
+                <img src="https://picsum.photos/seed/chef/800/600" alt="John Mavlonov" id="storyImage" loading="lazy" />
+            </div>
+            <div class="story-text reveal-right">
+                <span class="gold serif" style="font-size: 1.2rem;">История</span>
+                <h2 class="serif" style="font-size: 2.8rem;" id="storyTitle">От теста к <span class="gold">искусству</span></h2>
+                <div class="divider"></div>
+                <p id="storyText">John начал свой путь в 20 лет, пройдя через лучшие пиццерии: от «Белка» до «Dens Pizza». Сегодня он — универсал: управляет линией, инвентаризацией, и выдаёт до 200 пицц за смену.</p>
+                <div class="stat-list" id="statList">
+                    <div class="stat-item"><span class="number" id="statYears">4+</span><br />лет опыта</div>
+                    <div class="stat-item"><span class="number" id="statDishes">120+</span><br />блюд в меню</div>
+                    <div class="stat-item"><span class="number" id="statPlaces">6</span><br />мест работы</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience" class="container">
+        <h2 class="serif reveal" style="font-size: 2.6rem;">Опыт <span class="gold">работы</span></h2>
+        <div class="card-grid reveal" id="experienceGrid">
+            <div class="exp-card"><strong>Белок</strong> · Пиццер</div>
+            <div class="exp-card"><strong>Тесту Место</strong> · Су-шеф</div>
+            <div class="exp-card"><strong>Dens Pizza</strong> · Старший пиццер</div>
+            <div class="exp-card"><strong>Mr Pizzello</strong> · Пиццер-универсал</div>
+            <div class="exp-card"><strong>Kebub Hub</strong> · Линейный шеф</div>
+        </div>
+
+        <h2 class="serif reveal" style="font-size: 2.6rem; margin-top: 70px;">Навыки</h2>
+        <div class="reveal" id="skillsContainer" style="margin-top: 20px;">
+            <span class="skill-tag">Неаполитанская пицца</span>
+            <span class="skill-tag">Бруклинская пицца</span>
+            <span class="skill-tag">Турецкая кухня</span>
+            <span class="skill-tag">Кебаб</span>
+            <span class="skill-tag">Высокая скорость</span>
+            <span class="skill-tag">Работа с кассой</span>
+            <span class="skill-tag">Инвентаризация</span>
+            <span class="skill-tag">Управление персоналом</span>
+            <span class="skill-tag">Высокие нагрузки</span>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section id="gallery" class="container">
+        <h2 class="serif reveal" style="font-size: 2.6rem;">Галерея <span class="gold">блюд</span></h2>
+        <div class="gallery-filter reveal">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="pizza">Пицца</button>
+            <button class="filter-btn" data-filter="kebab">Кебаб</button>
+        </div>
+        <div class="gallery-grid reveal" id="galleryGrid"></div>
+    </section>
+
+    <!-- ===== ACHIEVEMENTS ===== -->
+    <section id="achievements" class="container">
+        <h2 class="serif reveal" style="font-size: 2.6rem;">Достижения</h2>
+        <div class="card-grid reveal" id="achievementsGrid">
+            <div class="exp-card">🏆 Лучший пиццер 2025</div>
+            <div class="exp-card">🔥 200+ пицц за смену</div>
+            <div class="exp-card">⭐ Рейтинг 4.9 на доставках</div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="container">
+        <h2 class="serif reveal" style="font-size: 2.6rem;">Связаться</h2>
+        <div class="reveal glass contact-card" id="contactCard">
+            <p>📞 <span id="contactPhone">+7 999 123-45-67</span></p>
+            <p>📧 <span id="contactEmail">john@pizza.chef</span></p>
+            <a href="#" class="btn btn-primary" id="contactBtn" style="margin-top: 16px;">Написать в Telegram</a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p id="footerText">© 2026 John Mavlonov · Премиум портфолио</p>
+    </footer>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <img id="lightboxImg" src="" alt="" />
     </div>
-  </section>
 
-  <!-- EXPERIENCE & SKILLS -->
-  <section id="experience" class="container">
-    <h2 class="serif reveal" style="font-size:2.6rem;">Опыт <span class="gold">работы</span></h2>
-    <div class="card-grid reveal">
-      <div class="exp-card"><strong>Белок</strong> · Пиццер</div>
-      <div class="exp-card"><strong>Тесту Место</strong> · Су-шеф</div>
-      <div class="exp-card"><strong>Dens Pizza</strong> · Старший пиццер</div>
-      <div class="exp-card"><strong>Mr Pizzello</strong> · Пиццер-универсал</div>
-      <div class="exp-card"><strong>Kebub Hub</strong> · Линейный шеф</div>
-    </div>
+    <!-- ===== ADMIN LINK ===== -->
+    <a href="admin.html" class="admin-link" target="_blank">⚙️ Админ-панель</a>
 
-    <h2 class="serif reveal" style="font-size:2.6rem; margin-top:60px;">Навыки</h2>
-    <div class="reveal" style="margin-top:20px;">
-      <span class="skill-tag">Неаполитанская пицца</span>
-      <span class="skill-tag">Бруклинская пицца</span>
-      <span class="skill-tag">Турецкая кухня</span>
-      <span class="skill-tag">Кебаб</span>
-      <span class="skill-tag">Высокая скорость</span>
-      <span class="skill-tag">Работа с кассой</span>
-      <span class="skill-tag">Инвентаризация</span>
-      <span class="skill-tag">Управление персоналом</span>
-      <span class="skill-tag">Высокие нагрузки</span>
-    </div>
-  </section>
+    <script>
+        // ============================================================
+        //  PUBLIC SITE - загружает данные из localStorage
+        // ============================================================
 
-  <!-- GALLERY -->
-  <section id="gallery" class="container">
-    <h2 class="serif reveal" style="font-size:2.6rem;">Галерея <span class="gold">блюд</span></h2>
-    <div class="gallery-filter reveal">
-      <button class="filter-btn active" data-filter="all">Все</button>
-      <button class="filter-btn" data-filter="pizza">Пицца</button>
-      <button class="filter-btn" data-filter="kebab">Кебаб</button>
-    </div>
-    <div class="gallery-grid reveal" id="galleryGrid">
-      <!-- items injected by js -->
-    </div>
-  </section>
+        // ----- DEFAULT DATA -----
+        const defaultData = {
+            heroSub: 'Pizza Chef · Sous-Chef',
+            heroTitle: 'John Mavlonov',
+            heroDesc: 'Неаполитанская душа, бруклинский характер. 4 года у печи, скорость и вкус — мои ингредиенты.',
+            storyImage: 'https://picsum.photos/seed/chef/800/600',
+            storyTitle: 'От теста к искусству',
+            storyText: 'John начал свой путь в 20 лет, пройдя через лучшие пиццерии: от «Белка» до «Dens Pizza». Сегодня он — универсал: управляет линией, инвентаризацией, и выдаёт до 200 пицц за смену.',
+            statYears: '4+',
+            statDishes: '120+',
+            statPlaces: '6',
+            experience: [
+                'Белок · Пиццер',
+                'Тесту Место · Су-шеф',
+                'Dens Pizza · Старший пиццер',
+                'Mr Pizzello · Пиццер-универсал',
+                'Kebub Hub · Линейный шеф'
+            ],
+            skills: [
+                'Неаполитанская пицца', 'Бруклинская пицца', 'Турецкая кухня',
+                'Кебаб', 'Высокая скорость', 'Работа с кассой',
+                'Инвентаризация', 'Управление персоналом', 'Высокие нагрузки'
+            ],
+            achievements: [
+                '🏆 Лучший пиццер 2025',
+                '🔥 200+ пицц за смену',
+                '⭐ Рейтинг 4.9 на доставках'
+            ],
+            contactPhone: '+7 999 123-45-67',
+            contactEmail: 'john@pizza.chef',
+            footerText: '© 2026 John Mavlonov · Премиум портфолио'
+        };
 
-  <!-- ACHIEVEMENTS -->
-  <section id="achievements" class="container">
-    <h2 class="serif reveal" style="font-size:2.6rem;">Достижения</h2>
-    <div class="card-grid reveal">
-      <div class="exp-card">🏆 Лучший пиццер 2025</div>
-      <div class="exp-card">🔥 200+ пицц за смену</div>
-      <div class="exp-card">⭐ Рейтинг 4.9 на доставках</div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="container">
-    <h2 class="serif reveal" style="font-size:2.6rem;">Связаться</h2>
-    <div class="reveal glass" style="padding:40px; max-width:600px;">
-      <p style="margin-bottom:20px;">📞 +7 999 123-45-67 · 📧 john@pizza.chef</p>
-      <a href="#" class="btn btn-primary" id="contactBtn">Написать в Telegram</a>
-    </div>
-  </section>
-
-  <!-- ADMIN PANEL -->
-  <div class="admin-panel container" id="adminPanel">
-    <h3 class="serif gold" style="margin-bottom:20px;">⚙️ Админ-панель</h3>
-    <div id="adminLogin" class="admin-login active">
-      <input type="text" class="admin-input" id="loginUser" placeholder="Логин" value="admin">
-      <input type="password" class="admin-input" id="loginPass" placeholder="Пароль" value="12345">
-      <button class="btn btn-primary" id="adminLoginBtn">Войти</button>
-    </div>
-    <div id="adminEditor" class="admin-editor">
-      <p class="gold">Редактирование контента (демо-режим)</p>
-      <div class="admin-row">
-        <input class="admin-input" id="editName" placeholder="Имя" value="John Mavlonov">
-        <input class="admin-input" id="editAge" placeholder="Возраст" value="24">
-      </div>
-      <textarea class="admin-textarea" id="editBio">Неаполитанская душа, бруклинский характер. 4 года у печи.</textarea>
-      <button class="btn btn-primary" id="saveChangesBtn">Сохранить изменения</button>
-      <button class="btn btn-outline" id="adminLogoutBtn" style="margin-left:12px;">Выйти</button>
-      <p style="margin-top:20px; color:var(--text-muted);">* В полной версии редактируются все секции, фото, видео, цвета, порядок блоков.</p>
-    </div>
-  </div>
-
-  <footer>
-    <p>© 2026 John Mavlonov · Премиум портфолио</p>
-  </footer>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox"><img id="lightboxImg" src="" alt=""></div>
-
-  <script>
-    (function(){
-      // Gallery data
-      const galleryData = [
-        { src: 'https://picsum.photos/seed/pizza1/400/400', category: 'pizza', title: 'Маргарита' },
-        { src: 'https://picsum.photos/seed/pizza2/400/400', category: 'pizza', title: 'Пепперони' },
-        { src: 'https://picsum.photos/seed/kebab1/400/400', category: 'kebab', title: 'Донер кебаб' },
-        { src: 'https://picsum.photos/seed/pizza3/400/400', category: 'pizza', title: 'Четыре сыра' },
-        { src: 'https://picsum.photos/seed/kebab2/400/400', category: 'kebab', title: 'Адана кебаб' },
-      ];
-      let currentCategory = 'all';
-      const grid = document.getElementById('galleryGrid');
-
-      function renderGallery(cat) {
-        const filtered = cat === 'all' ? galleryData : galleryData.filter(i => i.category === cat);
-        grid.innerHTML = filtered.map((item, idx) => `
-          <div class="gallery-item" data-category="${item.category}" data-index="${idx}">
-            <img src="${item.src}" alt="${item.title}" loading="lazy">
-            <div class="overlay">${item.title}</div>
-          </div>
-        `).join('');
-        // lightbox
-        grid.querySelectorAll('.gallery-item').forEach(el => {
-          el.addEventListener('click', function(e) {
-            const img = this.querySelector('img');
-            if (img) {
-              document.getElementById('lightboxImg').src = img.src;
-              document.getElementById('lightbox').classList.add('active');
+        // ----- LOAD DATA -----
+        function loadData() {
+            let data = {};
+            try {
+                const stored = localStorage.getItem('portfolioData');
+                if (stored) {
+                    data = JSON.parse(stored);
+                    // merge with defaults
+                    for (const key in defaultData) {
+                        if (!(key in data)) data[key] = defaultData[key];
+                    }
+                } else {
+                    data = JSON.parse(JSON.stringify(defaultData));
+                }
+            } catch (e) {
+                data = JSON.parse(JSON.stringify(defaultData));
             }
-          });
-        });
-      }
-      renderGallery('all');
-
-      // filters
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          currentCategory = this.dataset.filter;
-          renderGallery(currentCategory);
-        });
-      });
-
-      // lightbox close
-      document.getElementById('lightbox').addEventListener('click', function(e) {
-        if (e.target === this) this.classList.remove('active');
-      });
-
-      // Reveal on scroll
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.15 });
-      reveals.forEach(el => observer.observe(el));
-
-      // Admin login
-      const loginDiv = document.getElementById('adminLogin');
-      const editorDiv = document.getElementById('adminEditor');
-      document.getElementById('adminLoginBtn').addEventListener('click', function() {
-        const user = document.getElementById('loginUser').value;
-        const pass = document.getElementById('loginPass').value;
-        if (user === 'admin' && pass === '12345') {
-          loginDiv.classList.remove('active');
-          editorDiv.classList.add('active');
-        } else {
-          alert('Неверные данные (admin / 12345)');
+            return data;
         }
-      });
-      document.getElementById('adminLogoutBtn').addEventListener('click', function() {
-        editorDiv.classList.remove('active');
-        loginDiv.classList.add('active');
-      });
 
-      // Save changes (demo)
-      document.getElementById('saveChangesBtn').addEventListener('click', function() {
-        const name = document.getElementById('editName').value;
-        const age = document.getElementById('editAge').value;
-        const bio = document.getElementById('editBio').value;
-        document.querySelector('.hero-title').innerHTML = name.replace(/\s/g, '<br>') || 'John<br>Mavlonov';
-        document.querySelector('.hero-desc').textContent = bio || 'Неаполитанская душа, бруклинский характер.';
-        document.querySelector('.stat-item .number').textContent = age + '+';
-        alert('✅ Данные обновлены (демо)');
-      });
+        function applyData(data) {
+            // Hero
+            document.getElementById('heroSub').textContent = data.heroSub;
+            document.getElementById('heroTitle').innerHTML = data.heroTitle.replace(/\s/g, '<br />');
+            document.getElementById('heroDesc').textContent = data.heroDesc;
 
-      // download CV
-      document.getElementById('downloadCv').addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('📄 Скачивание резюме (демо)');
-      });
+            // Story
+            document.getElementById('storyImage').src = data.storyImage;
+            document.getElementById('storyTitle').innerHTML = data.storyTitle.replace(/\s/g, ' ') + ' <span class="gold">искусству</span>';
+            document.getElementById('storyText').textContent = data.storyText;
+            document.getElementById('statYears').textContent = data.statYears;
+            document.getElementById('statDishes').textContent = data.statDishes;
+            document.getElementById('statPlaces').textContent = data.statPlaces;
 
-      // contact
-      document.getElementById('contactBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('✉️ Связь: @john_pizza (демо)');
-      });
+            // Experience
+            const expGrid = document.getElementById('experienceGrid');
+            expGrid.innerHTML = data.experience.map(e => `<div class="exp-card"><strong>${e}</strong></div>`).join('');
 
-      // apply initial visible
-      setTimeout(() => {
-        document.querySelectorAll('.reveal').forEach(el => {
-          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+            // Skills
+            const skillsContainer = document.getElementById('skillsContainer');
+            skillsContainer.innerHTML = data.skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
+
+            // Achievements
+            const achGrid = document.getElementById('achievementsGrid');
+            achGrid.innerHTML = data.achievements.map(a => `<div class="exp-card">${a}</div>`).join('');
+
+            // Contact
+            document.getElementById('contactPhone').textContent = data.contactPhone;
+            document.getElementById('contactEmail').textContent = data.contactEmail;
+
+            // Footer
+            document.getElementById('footerText').textContent = data.footerText;
+        }
+
+        // ----- INIT -----
+        const siteData = loadData();
+        applyData(siteData);
+
+        // ============================================================
+        //  GALLERY (static, but can be extended via admin)
+        // ============================================================
+        const galleryData = [
+            { src: 'https://picsum.photos/seed/pizza1/400/400', category: 'pizza', title: 'Маргарита' },
+            { src: 'https://picsum.photos/seed/pizza2/400/400', category: 'pizza', title: 'Пепперони' },
+            { src: 'https://picsum.photos/seed/kebab1/400/400', category: 'kebab', title: 'Донер кебаб' },
+            { src: 'https://picsum.photos/seed/pizza3/400/400', category: 'pizza', title: 'Четыре сыра' },
+            { src: 'https://picsum.photos/seed/kebab2/400/400', category: 'kebab', title: 'Адана кебаб' },
+            { src: 'https://picsum.photos/seed/pizza4/400/400', category: 'pizza', title: 'Маргарита с базиликом' },
+        ];
+
+        const grid = document.getElementById('galleryGrid');
+        let currentCategory = 'all';
+
+        function renderGallery(cat) {
+            const filtered = cat === 'all' ? galleryData : galleryData.filter(i => i.category === cat);
+            grid.innerHTML = filtered.map((item, idx) => `
+                <div class="gallery-item" data-category="${item.category}" data-index="${idx}">
+                    <img src="${item.src}" alt="${item.title}" loading="lazy" />
+                    <div class="overlay">${item.title}</div>
+                </div>
+            `).join('');
+            // Lightbox
+            grid.querySelectorAll('.gallery-item').forEach(el => {
+                el.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    if (img) {
+                        document.getElementById('lightboxImg').src = img.src;
+                        document.getElementById('lightbox').classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+        }
+        renderGallery('all');
+
+        // Filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.filter;
+                renderGallery(currentCategory);
+            });
         });
-      }, 300);
-    })();
-  </script>
+
+        // Lightbox close
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        //  REVEAL ON SCROLL
+        // ============================================================
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+        // ============================================================
+        //  DOWNLOAD CV
+        // ============================================================
+        document.getElementById('downloadCv').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('📄 Скачивание резюме (файл CV.pdf)');
+        });
+
+        // ============================================================
+        //  CONTACT BUTTON
+        // ============================================================
+        document.getElementById('contactBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('contactPhone').textContent.replace(/\s/g, '');
+            alert(`✉️ Связь через Telegram: @john_pizza (или звонок ${phone})`);
+        });
+    </script>
+
 </body>
 </html>
