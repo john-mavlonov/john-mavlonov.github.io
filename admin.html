@@ -1,357 +1,571 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - John Mavlonov Portfolio</title>
-    <link rel="stylesheet" href="admin-styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админ-панель · John Mavlonov</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0b0806;
+            color: #f0ebe6;
+            font-family: 'Inter', sans-serif;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .admin-container {
+            max-width: 1100px;
+            width: 100%;
+            background: #14100e;
+            border-radius: 32px;
+            padding: 40px 48px;
+            border: 1px solid rgba(200, 159, 107, 0.12);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+        }
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+        }
+        .gold {
+            color: #c89f6b;
+        }
+        .sub {
+            color: #a8988b;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+        .logout-btn {
+            background: transparent;
+            border: 1px solid rgba(240, 235, 230, 0.15);
+            color: #a8988b;
+            padding: 8px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.85rem;
+            float: right;
+            margin-top: -48px;
+        }
+        .logout-btn:hover {
+            border-color: #c89f6b;
+            color: #f0ebe6;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #a8988b;
+            margin-bottom: 6px;
+            letter-spacing: 0.04em;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: #1f1814;
+            border: 1px solid #2f2620;
+            padding: 14px 20px;
+            border-radius: 16px;
+            color: #f0ebe6;
+            font-size: 1rem;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c89f6b;
+            box-shadow: 0 0 0 3px rgba(200, 159, 107, 0.15);
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .btn-save {
+            background: #c89f6b;
+            color: #0b0806;
+            border: none;
+            padding: 14px 48px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 12px;
+        }
+        .btn-save:hover {
+            background: #b88a56;
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(200, 159, 107, 0.3);
+        }
+        .btn-reset {
+            background: transparent;
+            border: 1px solid rgba(240, 235, 230, 0.12);
+            color: #a8988b;
+            padding: 14px 36px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-left: 16px;
+        }
+        .btn-reset:hover {
+            border-color: #c89f6b;
+            color: #f0ebe6;
+        }
+        .toast {
+            background: #1f2a1f;
+            border-left: 4px solid #6f9e6f;
+            padding: 16px 24px;
+            border-radius: 16px;
+            margin-top: 24px;
+            display: none;
+            color: #d4e8d4;
+        }
+        .toast.show {
+            display: block;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 32px 0 16px;
+            color: #c89f6b;
+            border-bottom: 1px solid rgba(200, 159, 107, 0.08);
+            padding-bottom: 8px;
+        }
+        .array-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .array-input .tag {
+            background: #1f1814;
+            padding: 6px 16px;
+            border-radius: 40px;
+            border: 1px solid #2f2620;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .array-input .tag button {
+            background: none;
+            border: none;
+            color: #a8988b;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0 4px;
+        }
+        .array-input .tag button:hover {
+            color: #d95c2b;
+        }
+        .array-input input {
+            flex: 1;
+            min-width: 120px;
+            background: #1f1814;
+            border: 1px solid #2f2620;
+            padding: 8px 16px;
+            border-radius: 40px;
+            color: #f0ebe6;
+            font-size: 0.85rem;
+        }
+        .array-input input:focus {
+            outline: none;
+            border-color: #c89f6b;
+        }
+        .array-input .add-btn {
+            background: rgba(200, 159, 107, 0.15);
+            border: 1px solid rgba(200, 159, 107, 0.2);
+            color: #c89f6b;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .array-input .add-btn:hover {
+            background: rgba(200, 159, 107, 0.25);
+        }
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 24px 20px;
+            }
+            .row {
+                grid-template-columns: 1fr;
+            }
+            .logout-btn {
+                float: none;
+                margin-top: 12px;
+                display: inline-block;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Admin Dashboard -->
-    <div class="admin-wrapper">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2 class="sidebar-title">Admin Panel</h2>
-                <p class="sidebar-subtitle">Portfolio Management</p>
+
+    <div class="admin-container" id="adminApp">
+        <!-- LOGIN SCREEN -->
+        <div id="loginScreen">
+            <h1>⚙️ Админ-панель</h1>
+            <p class="sub">Вход для управления контентом</p>
+            <div class="form-group">
+                <label>Логин</label>
+                <input type="text" id="loginUser" value="admin" />
             </div>
-
-            <nav class="sidebar-menu">
-                <a href="#" class="menu-item active" data-section="dashboard">
-                    <span class="menu-icon">📊</span>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="menu-item" data-section="profile">
-                    <span class="menu-icon">👤</span>
-                    <span>Profile</span>
-                </a>
-                <a href="#" class="menu-item" data-section="portfolio">
-                    <span class="menu-icon">🖼️</span>
-                    <span>Portfolio</span>
-                </a>
-                <a href="#" class="menu-item" data-section="skills">
-                    <span class="menu-icon">⚡</span>
-                    <span>Skills</span>
-                </a>
-                <a href="#" class="menu-item" data-section="timeline">
-                    <span class="menu-icon">📅</span>
-                    <span>Timeline</span>
-                </a>
-                <a href="#" class="menu-item" data-section="contact">
-                    <span class="menu-icon">✉️</span>
-                    <span>Contact Info</span>
-                </a>
-                <a href="#" class="menu-item" data-section="messages">
-                    <span class="menu-icon">💬</span>
-                    <span>Messages</span>
-                </a>
-            </nav>
-
-            <div class="sidebar-footer">
-                <a href="index.html" class="logout-btn">← Back to Portfolio</a>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="loginPass" value="12345" />
             </div>
-        </aside>
+            <button class="btn-save" id="loginBtn">Войти</button>
+            <div id="loginError" style="color:#d95c2b; margin-top:12px; display:none;">Неверные данные</div>
+        </div>
 
-        <!-- Main Content -->
-        <main class="admin-content">
-            <!-- Header -->
-            <div class="admin-header">
-                <div class="header-left">
-                    <h1 class="page-title">Welcome to Admin Dashboard</h1>
-                    <p class="page-subtitle">Manage your portfolio content</p>
+        <!-- EDITOR SCREEN -->
+        <div id="editorScreen" style="display:none;">
+            <h1>⚙️ Редактор <span class="gold">контента</span></h1>
+            <button class="logout-btn" id="logoutBtn">🚪 Выйти</button>
+            <p class="sub">Все изменения сохраняются в localStorage и применяются на сайте.</p>
+
+            <!-- HERO -->
+            <div class="section-title">Hero-блок</div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Подзаголовок</label>
+                    <input type="text" id="editHeroSub" />
                 </div>
-                <div class="header-right">
-                    <div class="header-time" id="currentTime"></div>
+                <div class="form-group">
+                    <label>Имя (заголовок)</label>
+                    <input type="text" id="editHeroTitle" />
                 </div>
             </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <textarea id="editHeroDesc" rows="2"></textarea>
+            </div>
 
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="dashboard-section active">
-                <div class="dashboard-grid">
-                    <div class="stat-box">
-                        <div class="stat-icon">👁️</div>
-                        <div class="stat-info">
-                            <span class="stat-label">Portfolio Views</span>
-                            <span class="stat-value" id="viewsCount">1,234</span>
-                        </div>
-                    </div>
-
-                    <div class="stat-box">
-                        <div class="stat-icon">✉️</div>
-                        <div class="stat-info">
-                            <span class="stat-label">New Messages</span>
-                            <span class="stat-value" id="messagesCount">8</span>
-                        </div>
-                    </div>
-
-                    <div class="stat-box">
-                        <div class="stat-icon">🎯</div>
-                        <div class="stat-info">
-                            <span class="stat-label">Portfolio Items</span>
-                            <span class="stat-value" id="portfolioCount">6</span>
-                        </div>
-                    </div>
-
-                    <div class="stat-box">
-                        <div class="stat-icon">⭐</div>
-                        <div class="stat-info">
-                            <span class="stat-label">Average Rating</span>
-                            <span class="stat-value">4.9/5</span>
-                        </div>
-                    </div>
+            <!-- STORY -->
+            <div class="section-title">История</div>
+            <div class="form-group">
+                <label>URL фото (story image)</label>
+                <input type="text" id="editStoryImage" />
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Заголовок</label>
+                    <input type="text" id="editStoryTitle" />
                 </div>
-
-                <div class="dashboard-content">
-                    <div class="recent-messages">
-                        <h2>Recent Messages</h2>
-                        <div class="messages-list" id="recentMessages">
-                            <p style="text-align: center; color: #999;">No messages yet</p>
-                        </div>
-                    </div>
-
-                    <div class="analytics">
-                        <h2>Quick Stats</h2>
-                        <div class="analytics-chart">
-                            <div class="chart-bar">
-                                <span>Mon</span>
-                                <div class="bar" style="height: 60%"></div>
-                            </div>
-                            <div class="chart-bar">
-                                <span>Tue</span>
-                                <div class="bar" style="height: 75%"></div>
-                            </div>
-                            <div class="chart-bar">
-                                <span>Wed</span>
-                                <div class="bar" style="height: 50%"></div>
-                            </div>
-                            <div class="chart-bar">
-                                <span>Thu</span>
-                                <div class="bar" style="height: 85%"></div>
-                            </div>
-                            <div class="chart-bar">
-                                <span>Fri</span>
-                                <div class="bar" style="height: 70%"></div>
-                            </div>
-                            <div class="chart-bar">
-                                <span>Sat</span>
-                                <div class="bar" style="height: 80%"></div>
-                            </div>
-                            <div class="chart-bar">
-                                <span>Sun</span>
-                                <div class="bar" style="height: 65%"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label>Текст</label>
+                    <textarea id="editStoryText" rows="2"></textarea>
                 </div>
-            </section>
+            </div>
+            <div class="row">
+                <div class="form-group"><label>Лет опыта</label><input type="text" id="editStatYears" /></div>
+                <div class="form-group"><label>Блюд в меню</label><input type="text" id="editStatDishes" /></div>
+                <div class="form-group"><label>Мест работы</label><input type="text" id="editStatPlaces" /></div>
+            </div>
 
-            <!-- Profile Section -->
-            <section id="profile" class="admin-section">
-                <h2>Profile Settings</h2>
-                <form class="admin-form" id="profileForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="fullName" value="John Mavlonov" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Professional Title</label>
-                            <input type="text" id="profTitle" value="Premium Pizza Chef" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="profileEmail" value="john@mavlonov.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="tel" id="profilePhone" value="+1 (234) 567-890" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Location</label>
-                            <input type="text" id="profileLocation" value="Italy, Europe" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Years of Experience</label>
-                            <input type="text" id="yearsExp" value="4+ Years" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label>Bio</label>
-                        <textarea id="bio" rows="5">Professional pizza chef with passion for culinary excellence. Specializing in traditional Italian recipes and innovative fusion concepts.</textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Save Profile</button>
-                </form>
-            </section>
-
-            <!-- Portfolio Section -->
-            <section id="portfolio" class="admin-section">
-                <h2>Portfolio Items</h2>
-                
-                <div class="add-item-btn">
-                    <button class="btn btn-primary" id="addPortfolioBtn">+ Add New Item</button>
+            <!-- EXPERIENCE -->
+            <div class="section-title">Опыт работы (массив)</div>
+            <div class="form-group">
+                <div class="array-input" id="expArrayContainer">
+                    <!-- динамически -->
                 </div>
+            </div>
 
-                <div class="portfolio-list" id="portfolioList">
-                    <div class="portfolio-item">
-                        <div class="portfolio-item-header">
-                            <h3>Margherita</h3>
-                            <span class="category-badge">Traditional</span>
-                        </div>
-                        <p>Classic Italian with fresh basil</p>
-                        <div class="item-actions">
-                            <button class="btn-small btn-edit">Edit</button>
-                            <button class="btn-small btn-delete">Delete</button>
-                        </div>
-                    </div>
+            <!-- SKILLS -->
+            <div class="section-title">Навыки (массив)</div>
+            <div class="form-group">
+                <div class="array-input" id="skillsArrayContainer">
+                    <!-- динамически -->
                 </div>
+            </div>
 
-                <!-- Modal for adding portfolio items -->
-                <div id="portfolioModal" class="modal" style="display: none;">
-                    <div class="modal-content">
-                        <span class="modal-close" onclick="closePortfolioModal()">&times;</span>
-                        <h3>Add Portfolio Item</h3>
-                        <form id="portfolioForm">
-                            <div class="form-group">
-                                <label>Item Name</label>
-                                <input type="text" id="itemName" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Category</label>
-                                <select id="itemCategory" required>
-                                    <option>Traditional</option>
-                                    <option>Gourmet</option>
-                                    <option>Fusion</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea id="itemDescription" rows="4" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save Item</button>
-                        </form>
-                    </div>
+            <!-- ACHIEVEMENTS -->
+            <div class="section-title">Достижения (массив)</div>
+            <div class="form-group">
+                <div class="array-input" id="achArrayContainer">
+                    <!-- динамически -->
                 </div>
-            </section>
+            </div>
 
-            <!-- Skills Section -->
-            <section id="skills" class="admin-section">
-                <h2>Skills Management</h2>
-                
-                <div class="skills-management">
-                    <div class="skill-form">
-                        <h3>Add New Skill</h3>
-                        <form id="skillForm">
-                            <div class="form-group">
-                                <label>Skill Name</label>
-                                <input type="text" id="skillName" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Skill Level (0-100)</label>
-                                <input type="number" id="skillLevel" min="0" max="100" value="80" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea id="skillDesc" rows="3" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add Skill</button>
-                        </form>
-                    </div>
+            <!-- CONTACT -->
+            <div class="section-title">Контакты</div>
+            <div class="row">
+                <div class="form-group"><label>Телефон</label><input type="text" id="editContactPhone" /></div>
+                <div class="form-group"><label>Email</label><input type="text" id="editContactEmail" /></div>
+            </div>
 
-                    <div class="skills-list">
-                        <h3>Current Skills</h3>
-                        <div id="skillsList">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <h4>Pizzaiolo Mastery</h4>
-                                    <p>Traditional and contemporary pizza preparation</p>
-                                </div>
-                                <div class="skill-level-display">95%</div>
-                                <button class="btn-small btn-delete">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <!-- FOOTER -->
+            <div class="section-title">Футер</div>
+            <div class="form-group"><label>Текст</label><input type="text" id="editFooterText" /></div>
 
-            <!-- Timeline Section -->
-            <section id="timeline" class="admin-section">
-                <h2>Career Timeline</h2>
-                
-                <div class="timeline-management">
-                    <form id="timelineForm">
-                        <div class="form-group">
-                            <label>Year</label>
-                            <input type="number" id="timelineYear" min="2000" max="2099" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" id="timelineTitle" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea id="timelineDesc" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Timeline Event</button>
-                    </form>
+            <!-- ACTIONS -->
+            <div style="margin-top:32px; display:flex; flex-wrap:wrap; gap:12px;">
+                <button class="btn-save" id="saveAllBtn">💾 Сохранить все изменения</button>
+                <button class="btn-reset" id="resetDefaultsBtn">↺ Сбросить к умолчаниям</button>
+            </div>
 
-                    <div id="timelineList" style="margin-top: 40px;">
-                        <h3>Timeline Events</h3>
-                        <div class="timeline-events">
-                            <div class="timeline-event">
-                                <span class="event-year">2024</span>
-                                <h4>Innovation & Leadership</h4>
-                                <p>Leading kitchen operations and creating innovative menu concepts</p>
-                                <button class="btn-small btn-delete">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section id="contact" class="admin-section">
-                <h2>Contact Information</h2>
-                <form class="admin-form" id="contactForm">
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" id="contactEmail" value="john@mavlonov.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" id="contactPhone" value="+1 (234) 567-890" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" id="contactLocation" value="Italy, Europe" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Social Media Links</label>
-                        <input type="text" id="socialInstagram" placeholder="Instagram URL">
-                        <input type="text" id="socialLinkedin" placeholder="LinkedIn URL">
-                        <input type="text" id="socialTwitter" placeholder="Twitter URL">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Contact Info</button>
-                </form>
-            </section>
-
-            <!-- Messages Section -->
-            <section id="messages" class="admin-section">
-                <h2>Messages</h2>
-                <div class="messages-container" id="messagesContainer">
-                    <p style="text-align: center; color: #999; padding: 40px;">No messages received yet</p>
-                </div>
-            </section>
-        </main>
+            <div class="toast" id="toastMessage">✅ Данные сохранены! Обновите сайт, чтобы увидеть изменения.</div>
+        </div>
     </div>
 
-    <script src="admin-script.js"></script>
+    <script>
+        // ============================================================
+        //  ADMIN PANEL - full CRUD with localStorage
+        // ============================================================
+
+        const DEFAULTS = {
+            heroSub: 'Pizza Chef · Sous-Chef',
+            heroTitle: 'John Mavlonov',
+            heroDesc: 'Неаполитанская душа, бруклинский характер. 4 года у печи, скорость и вкус — мои ингредиенты.',
+            storyImage: 'https://picsum.photos/seed/chef/800/600',
+            storyTitle: 'От теста к искусству',
+            storyText: 'John начал свой путь в 20 лет, пройдя через лучшие пиццерии: от «Белка» до «Dens Pizza». Сегодня он — универсал: управляет линией, инвентаризацией, и выдаёт до 200 пицц за смену.',
+            statYears: '4+',
+            statDishes: '120+',
+            statPlaces: '6',
+            experience: [
+                'Белок · Пиццер',
+                'Тесту Место · Су-шеф',
+                'Dens Pizza · Старший пиццер',
+                'Mr Pizzello · Пиццер-универсал',
+                'Kebub Hub · Линейный шеф'
+            ],
+            skills: [
+                'Неаполитанская пицца', 'Бруклинская пицца', 'Турецкая кухня',
+                'Кебаб', 'Высокая скорость', 'Работа с кассой',
+                'Инвентаризация', 'Управление персоналом', 'Высокие нагрузки'
+            ],
+            achievements: [
+                '🏆 Лучший пиццер 2025',
+                '🔥 200+ пицц за смену',
+                '⭐ Рейтинг 4.9 на доставках'
+            ],
+            contactPhone: '+7 999 123-45-67',
+            contactEmail: 'john@pizza.chef',
+            footerText: '© 2026 John Mavlonov · Премиум портфолио'
+        };
+
+        // ----- STATE -----
+        let currentData = {};
+        let isLoggedIn = false;
+
+        // ----- DOM refs -----
+        const loginScreen = document.getElementById('loginScreen');
+        const editorScreen = document.getElementById('editorScreen');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginError = document.getElementById('loginError');
+        const toast = document.getElementById('toastMessage');
+
+        // ----- load from localStorage -----
+        function loadData() {
+            try {
+                const stored = localStorage.getItem('portfolioData');
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    // merge with defaults
+                    for (const key in DEFAULTS) {
+                        if (!(key in parsed)) parsed[key] = DEFAULTS[key];
+                    }
+                    return parsed;
+                }
+            } catch (e) {}
+            return JSON.parse(JSON.stringify(DEFAULTS));
+        }
+
+        function saveData(data) {
+            localStorage.setItem('portfolioData', JSON.stringify(data));
+        }
+
+        // ----- render array editors -----
+        function renderArrayEditor(containerId, array, onChange) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            array.forEach((item, index) => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.innerHTML = `${item} <button data-index="${index}" class="remove-item">✕</button>`;
+                container.appendChild(tag);
+            });
+            // input + add button
+            const wrapper = document.createElement('div');
+            wrapper.style.display = 'flex';
+            wrapper.style.gap = '8px';
+            wrapper.style.width = '100%';
+            wrapper.style.marginTop = '6px';
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Новый элемент...';
+            input.id = `${containerId}_input`;
+
+            const addBtn = document.createElement('button');
+            addBtn.className = 'add-btn';
+            addBtn.textContent = '+ Добавить';
+            addBtn.addEventListener('click', function() {
+                const val = input.value.trim();
+                if (val) {
+                    array.push(val);
+                    onChange(array);
+                    renderArrayEditor(containerId, array, onChange);
+                }
+                input.value = '';
+            });
+
+            wrapper.appendChild(input);
+            wrapper.appendChild(addBtn);
+            container.appendChild(wrapper);
+
+            // remove handlers
+            container.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    array.splice(idx, 1);
+                    onChange(array);
+                    renderArrayEditor(containerId, array, onChange);
+                });
+            });
+        }
+
+        // ----- populate form from data -----
+        function populateForm(data) {
+            document.getElementById('editHeroSub').value = data.heroSub || '';
+            document.getElementById('editHeroTitle').value = data.heroTitle || '';
+            document.getElementById('editHeroDesc').value = data.heroDesc || '';
+            document.getElementById('editStoryImage').value = data.storyImage || '';
+            document.getElementById('editStoryTitle').value = data.storyTitle || '';
+            document.getElementById('editStoryText').value = data.storyText || '';
+            document.getElementById('editStatYears').value = data.statYears || '';
+            document.getElementById('editStatDishes').value = data.statDishes || '';
+            document.getElementById('editStatPlaces').value = data.statPlaces || '';
+            document.getElementById('editContactPhone').value = data.contactPhone || '';
+            document.getElementById('editContactEmail').value = data.contactEmail || '';
+            document.getElementById('editFooterText').value = data.footerText || '';
+
+            // arrays
+            renderArrayEditor('expArrayContainer', data.experience || [], (newArr) => {
+                data.experience = newArr;
+                currentData = data;
+            });
+            renderArrayEditor('skillsArrayContainer', data.skills || [], (newArr) => {
+                data.skills = newArr;
+                currentData = data;
+            });
+            renderArrayEditor('achArrayContainer', data.achievements || [], (newArr) => {
+                data.achievements = newArr;
+                currentData = data;
+            });
+        }
+
+        // ----- collect form data -----
+        function collectForm() {
+            const data = {
+                heroSub: document.getElementById('editHeroSub').value,
+                heroTitle: document.getElementById('editHeroTitle').value,
+                heroDesc: document.getElementById('editHeroDesc').value,
+                storyImage: document.getElementById('editStoryImage').value,
+                storyTitle: document.getElementById('editStoryTitle').value,
+                storyText: document.getElementById('editStoryText').value,
+                statYears: document.getElementById('editStatYears').value,
+                statDishes: document.getElementById('editStatDishes').value,
+                statPlaces: document.getElementById('editStatPlaces').value,
+                contactPhone: document.getElementById('editContactPhone').value,
+                contactEmail: document.getElementById('editContactEmail').value,
+                footerText: document.getElementById('editFooterText').value,
+                experience: currentData.experience || [],
+                skills: currentData.skills || [],
+                achievements: currentData.achievements || [],
+            };
+            return data;
+        }
+
+        // ----- show toast -----
+        function showToast(msg) {
+            toast.textContent = msg || '✅ Данные сохранены! Обновите сайт.';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ----- login -----
+        loginBtn.addEventListener('click', function() {
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            if (user === 'admin' && pass === '12345') {
+                loginScreen.style.display = 'none';
+                editorScreen.style.display = 'block';
+                isLoggedIn = true;
+                loginError.style.display = 'none';
+                // load data
+                currentData = loadData();
+                populateForm(currentData);
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+
+        // ----- logout -----
+        logoutBtn.addEventListener('click', function() {
+            editorScreen.style.display = 'none';
+            loginScreen.style.display = 'block';
+            isLoggedIn = false;
+            document.getElementById('loginPass').value = '';
+        });
+
+        // ----- save all -----
+        document.getElementById('saveAllBtn').addEventListener('click', function() {
+            const data = collectForm();
+            saveData(data);
+            currentData = data;
+            showToast('✅ Все данные сохранены! Обновите сайт.');
+        });
+
+        // ----- reset to defaults -----
+        document.getElementById('resetDefaultsBtn').addEventListener('click', function() {
+            if (confirm('Сбросить все данные к стандартным?')) {
+                const defaults = JSON.parse(JSON.stringify(DEFAULTS));
+                saveData(defaults);
+                currentData = defaults;
+                populateForm(defaults);
+                showToast('↺ Сброшено к умолчаниям.');
+            }
+        });
+
+        // ----- enter key on login -----
+        document.getElementById('loginPass').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+        document.getElementById('loginUser').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+
+        // if already logged in (session) — but we use simple approach
+        // check if data exists
+        if (localStorage.getItem('portfolioData')) {
+            // but still require login
+        }
+
+        console.log('✅ Admin panel ready');
+    </script>
+
 </body>
 </html>
